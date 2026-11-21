@@ -58,6 +58,7 @@ int main(int argc, char** argv){
 	texture_t img_pin = load_image("assets/pin.png");
 	
 	texture_t img_button_world = load_image("assets/button_world.png");
+	texture_t img_button_heat = load_image("assets/button_heat.png");
 
 	texture_t img_solarpanel_base = load_image("assets/solarpanel_base.png");
 	texture_t img_solarpanel_humid = load_image("assets/solarpanel_humid.png");
@@ -94,7 +95,7 @@ int main(int argc, char** argv){
 	
 	ui_button_textures[0] = img_button_world;
 	ui_button_textures[1] = img_windturbine_base;
-	ui_button_textures[2] = img_solarpanel_base;
+	ui_button_textures[2] = img_button_heat;
 	
 	vec2ui ui_button_size = {128, 128};
 	// vec2ui ui_button_start = {WIDTH - ui_button_size.x, (HEIGHT/2)};
