@@ -20,16 +20,17 @@
 /*                                         */
 /*******************************************/
 
-enum ENERGY_TYPE
+typedef enum ENERGY_TYPE
 {
     SOLAR = 0,
     WIND,
     HYDRO,
     GEO,
     BIO
-}; // 0 -> 4
+} energy_type_t; // 0 -> 4
 
-enum ENVIRONMENT_FACTORS {
+typedef enum ENVIRONMENT_FACTORS
+{
     TEMPERATURE = 0,
     SUNSHINE,
     HUMIDITY,
@@ -40,13 +41,18 @@ enum ENVIRONMENT_FACTORS {
     FOREST,
     SEISMIC_ACTIVITY,
     WATER
-}; // 0 -> 9
+} environment_factors_t; // 0 -> 9
+
+typedef struct efficiency_response_s
+{
+    int                     percentage;
+    environment_factors_t   issue;
+} efficiency_response_t;
 
 #define ENERGY_TYPE_COUNT 5
 #define ENVIRONMENT_FACTORS_COUNT 10
 
-
-int *compute_efficiency(int temperature,
+efficiency_response_t *compute_efficiency(int temperature,
                         int sunshine,
                         int humidity,
                         int clouds,
@@ -57,23 +63,23 @@ int *compute_efficiency(int temperature,
                         int seismic_activity,
                         int water); // Returns int*[5] where index is enum ENERGY_TYPE
 
-int compute_solar(
+efficiency_response_t compute_solar(
     int temperature,
     int sunshine,
     int humidity,
     int clouds,
     int rain);
 
-int compute_wind(int wind,
+efficiency_response_t compute_wind(int wind,
                  int rain);
 
-int compute_hydro(int water,
+efficiency_response_t compute_hydro(int water,
                   int rain,
                   int temperature);
 
-int compute_geo(int seismic_activity);
+efficiency_response_t compute_geo(int seismic_activity);
 
-int compute_bio(int forest,
+efficiency_response_t compute_bio(int forest,
                 int soil_fertility);
 
 #endif

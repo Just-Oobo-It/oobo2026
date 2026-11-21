@@ -10,7 +10,7 @@ int keep_btwn_100(int x)
     return x;
 }
 
-int *compute_efficiency(
+efficiency_response_t *compute_efficiency(
     int temperature,
     int sunshine,
     int humidity,
@@ -22,9 +22,9 @@ int *compute_efficiency(
     int seismic_activity,
     int water)
 {
-    int *res;
+    efficiency_response_t *res;
 
-    res = (int *)calloc(sizeof(int), ENERGY_TYPE_COUNT);
+    res = (efficiency_response_t *)calloc(sizeof(efficiency_response_t *), ENERGY_TYPE_COUNT);
 
     res[SOLAR] = compute_solar(temperature, sunshine, humidity, clouds, rain);
     res[WIND] = compute_wind(wind, rain);
@@ -35,7 +35,7 @@ int *compute_efficiency(
     return (res);
 }
 
-int compute_solar(
+efficiency_response_t compute_solar(
     int temperature,
     int sunshine,
     int humidity,
@@ -43,56 +43,93 @@ int compute_solar(
     int rain)
 {
     int res;
-
+    int issue = -1;
     res = keep_btwn_100(sunshine * 2);
     res = (res * (100 - ((rain * 2) - (clouds * 3)) / 10)) / 100; // rain * 0.2, clouds *0.3
-    if (humidity > 50) // too much humidity lowers efficiency
+    // too much humidity lowers efficiency
+    if (humidity > 50)
+    {
+        issue = HUMIDITY;
         res = res * 7 / 10;
-    if (humidity > 90) // too much humidity lowers efficiency (encore)
+    }
+    // too much humidity lowers efficiency (encore)
+    if (humidity > 90)
+    {
+        issue = HUMIDITY;
         res = res * 9 / 10;
-    if (temperature > 25) // trop cho => 0.4% par degré
+    }
+    // trop cho => 0.4% par degré
+    if (temperature > 25)
+    {
+        issue = TEMPERATURE;
         res = res * (100 - (((temperature - 25) * 4) / 10)) / 100;
-    if (temperature < -10) // trop froi => 80% 
+    }
+    // trop froi => 80%
+    if (temperature < -10)
+    {
+        issue = TEMPERATURE;
         res = res * 8 / 10;
-    return keep_btwn_100(res);
+    }
+    res = keep_btwn_100(res);
+    efficiency_response_t t = {res, issue};
+    return t;
 }
 
-int compute_wind(int wind,
-                 int rain)
+efficiency_response_t compute_wind(int wind,
+                                   int rain)
 {
     int res;
+    int issue = -1;
 
     res = keep_btwn_100(wind * wind / 40); // jsp mais ça a l'air cohérant en sah
-    if (rain > 75) // trop de pluie => corrosion => perte en efficacité, 0.2% for each percent of rain after 75
+    // trop de pluie => corrosion => perte en efficacité, 0.2% for each percent of rain after 75
+    if (rain > 75)
+    {
         res = res - ((rain - 75) * 2 / 10);
-    return res;
+        issue = RAIN;
+    }
+    efficiency_response_t t = {res, issue};
+    return t;
 }
 
-int compute_hydro(int water,
-                  int rain,
-                  int temperature)
+efficiency_response_t compute_hydro(int water,
+                                    int rain,
+                                    int temperature)
 {
     int res;
+    int issue = -1;
 
     res = keep_btwn_100(((water * 8) + (rain * 2)) / 10); // 80% for water, 20% for rain
-    if (temperature < -20) // if highly freezing, half by 2
+    // if highly freezing, half by 2
+    if (temperature < -20)
+    {
         res = res / 2;
-    if (temperature < 0) // if freezing, half by 2 (which makes highly freezing half by 4)
+    }
+    // if freezing, half by 2 (which makes highly freezing half by 4)
+    if (temperature < 0)
+    {
         res = res / 2;
-    if (temperature > 25) // when hot temperatures, evaporation of water
+    }
+    // when hot temperatures, evaporation of water
+    if (temperature > 25)
+    {
         res = res * 9 / 10;
-    return res;
+    }
+    efficiency_response_t t = {res, issue};
+    return t;
 }
 
-int compute_geo(int seismic_activity)
+efficiency_response_t compute_geo(int seismic_activity)
 {
-    return keep_btwn_100(seismic_activity); // jsp gros
+    efficiency_response_t t = {keep_btwn_100(seismic_activity), -1};
+    return t;
 }
 
-int compute_bio(int forest,
-                int soil_fertility)
+efficiency_response_t compute_bio(int forest,
+                                  int soil_fertility)
 {
-    return keep_btwn_100((forest * 40 + soil_fertility * 60) / 100); // 40% foret and 60% fertility (le sol hein)
+    efficiency_response_t t = {keep_btwn_100((forest * 40 + soil_fertility * 60) / 100), TEMPERATURE};
+    return t;
 }
 
-// notice : la plupart des chiffres sortent de mon *chapeau* 
+// notice : la plupart des chiffres sortent de mon *chapeau*
