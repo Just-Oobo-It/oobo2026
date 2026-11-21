@@ -12,7 +12,7 @@ uint8_t in_bound(vec2ui pos, button_t button){
 
 button_t* next_button(button_t* buttons, uint32_t tag){
 	for(uint32_t i=0; i<MAX_BUTTONS; i++){
-		if(!buttons[i].alive) return &(buttons[i]);
+		if(!buttons[i].alive && buttons[i].tag != tag) return &(buttons[i]);
 	}
 	return 0;
 }
@@ -33,6 +33,6 @@ button_t* button_clicked(mouse_state_t* mouse_state, button_t* buttons){
 			}
 		}
 	}
-	if(best_i != -1) return &(buttons[best_i]);
+	if(best_i != (uint32_t)-1) return &(buttons[best_i]);
 	return 0;
 }
