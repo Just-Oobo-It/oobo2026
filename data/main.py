@@ -1,6 +1,7 @@
 # This script will generate a uniformized dataset composed of one map image per environmental factor
 
 from PIL import Image
+import importlib
 
 MAP_WIDTH = 1920
 MAP_HEIGHT = 1080
@@ -8,7 +9,7 @@ MAP_HEIGHT = 1080
 def create_empty_map():
     pass
 
-def draw_map(empty_map: Image, data_array: int[MAP_HEIGHT][MAP_WIDTH], map_name: str):
+def draw_map(empty_map: Image, data_array: list[list[int]], map_name: str):
     pass
 
 
@@ -25,15 +26,24 @@ fields = [
     "WATER"
 ]
 
-modules = dict()
+modules = list()
 for x in fields:
-    modules[x] = __import__(f"mods/{x}.py")
+    try:
+        modules.append({
+            "name": x,
+            "module": importlib.import_module(f"mods.{x}")
+        })
+    except ModuleNotFoundError:
+        print(f"Module '{x}' can't be found in mods folder.")
+    except Exception:
+        print(f"Error : {Exception}")
 
-def get_data(name: str, mod: function) -> int[MAP_HEIGHT][MAP_WIDTH]:    
+def get_data(name: str, mod) -> list[list[int]]:    
     print(f"Getting data from {name}")
     mod.get_data()
     pass
 
-for k, m in modules:
-    data = get_data(k, m)
+for x in modules:
+    print(x)
+    data = get_data(x["name"], x["module"])
     draw_map(create_empty_map(), data, "temperature")

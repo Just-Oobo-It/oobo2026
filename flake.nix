@@ -16,6 +16,10 @@
         cmake
         gcc
         SDL2
+        python3
+        (pkgs.python3.withPackages (ps: [
+            ps.pillow
+        ]))
       ];
 
       shellHook = ''
