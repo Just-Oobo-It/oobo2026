@@ -52,8 +52,6 @@ def get_data(name: str, mod) -> list[list[int]]:
     return mod.get_data(MAP_WIDTH, MAP_HEIGHT)
 
 for x in modules:
-    print(x)
     data = get_data(x["name"], x["module"])
-    print(f"data : {data}")
     if (data and len(data)):
         draw_map(data, x["name"])
