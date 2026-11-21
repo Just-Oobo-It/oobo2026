@@ -29,8 +29,8 @@ enum ENERGY_TYPE
     BIO
 }; // 0 -> 4
 
-int *compute_efficiency(int temp,
-                        int temperature,
+int *compute_efficiency(int temperature,
+                        int sunshine,
                         int humidity,
                         int clouds,
                         int wind,
@@ -40,11 +40,12 @@ int *compute_efficiency(int temp,
                         int seismic_activity,
                         int water); // Returns int*[5] where index is enum ENERGY_TYPE
 
-int compute_solar(int temp,
-                  int humidity,
-                  int clouds,
-                  int rain,
-                  int temperature);
+int compute_solar(
+    int temperature,
+    int sunshine,
+    int humidity,
+    int clouds,
+    int rain);
 
 int compute_wind(int wind,
                  int rain);
