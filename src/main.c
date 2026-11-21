@@ -141,7 +141,7 @@ int main(int argc, char** argv){
 				}
 			}
 			button_down = 1;
-			qprint("tag : %x\n", clicked_button->tag);
+			// qprint("tag : %x\n", clicked_button->tag);
 			switch(clicked_button->tag){
 				case BT_SHOW_WORLD:
 					disp_image(layer_background, img_world, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
