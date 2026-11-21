@@ -6,9 +6,10 @@ int get_data_at_pixel(int *map, int x, int y)
     return (int)((map[y * WIDTH + x] / 255) * 100);
 }
 
-int* get_raw_data_array(int **maps, int x, int y) // maps should be of size ENVIRONMENT_FACTORS_COUNT, one map for each factor
+// maps should be of size ENVIRONMENT_FACTORS_COUNT, one map for each factor
+int *get_raw_data_array(int **maps, int x, int y)
 {
-    int *factor_values = (int*)calloc(sizeof(int), ENVIRONMENT_FACTORS_COUNT);
+    int *factor_values = (int *)calloc(sizeof(int), ENVIRONMENT_FACTORS_COUNT);
     for (int i = 0; i < ENVIRONMENT_FACTORS_COUNT; i++)
     {
         factor_values[i] = get_data_at_pixel(maps[i], x, y);
@@ -16,7 +17,7 @@ int* get_raw_data_array(int **maps, int x, int y) // maps should be of size ENVI
     return factor_values;
 }
 
-int* get_computed_data(int **maps, int x, int y)
+int *get_computed_data(int **maps, int x, int y)
 {
     int *factor_values = get_raw_data_array(maps, x, y);
 
@@ -41,6 +42,5 @@ int* get_computed_data(int **maps, int x, int y)
         soil_fertility,
         forest,
         seismic_activity,
-        water
-    );
+        water);
 }
