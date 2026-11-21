@@ -46,8 +46,8 @@ int compute_solar(
 
     res = keep_btwn_100(sunshine * 2);
     res = (res * (100 - ((rain * 2) - (clouds * 3)) / 10)) / 100; // rain * 0.2, clouds *0.3
-    if (humidity > 80) // too much humidity lowers efficiency
-        res = res * 9 / 10;
+    if (humidity > 50) // too much humidity lowers efficiency
+        res = res * 7 / 10;
     if (humidity > 90) // too much humidity lowers efficiency (encore)
         res = res * 9 / 10;
     if (temperature > 25) // trop cho => 0.4% par degré
