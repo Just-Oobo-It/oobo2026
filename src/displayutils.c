@@ -97,8 +97,8 @@ texture_t load_image(char* path){
 
 	uint32_t p;
 
-	for(uint32_t y=0; y<(uint32_t)t.height; y++){
-		for(uint32_t x=0; x<(uint32_t)t.width; x++){
+	for(int32_t y=0; y<t.height; y++){
+		for(int32_t x=0; x<t.width; x++){
 			p = t.pixels[y*t.width + x];
 			// p = argb abgr
 			p = ((p>>(24)&0xff)<<24) | ((p>>(0)&0xff)<<16) | ((p>>(8)&0xff)<<8) | ((p>>(16)&0xff)<<0);
@@ -116,7 +116,7 @@ int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 	
 	// uint32_t* pixels = SDL_GetWindowSurface(window)->pixels;
 	qlog("got pixels\n");
-	uint32_t t_index;
+	int32_t t_index;
 
 	qvald(image.width);
 	qvald(image.height);
@@ -137,9 +137,9 @@ int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 			u = ((x - pos.x)*image.width/(size.x));
 			v = ((y - pos.y)*image.height/(size.y));
 			if(u < 0) continue;
-			if(u >= (uint32_t)image.width) continue;
+			if(u >= image.width) continue;
 			if(v < 0) continue;
-			if(v >= (uint32_t)image.height) continue;
+			if(v >= image.height) continue;
 			t_index = (v*image.width) + u;
 			if(t_index >= image.width * image.height){
 				qerror("T INDEX TOO HIGH\n");
