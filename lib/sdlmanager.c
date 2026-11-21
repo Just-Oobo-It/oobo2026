@@ -39,7 +39,7 @@ char m_handleInput(uint8_t** keyboardState, mouse_state_t* mouse_state){
 
 		if(event.type == SDL_MOUSEBUTTONDOWN){
 			mouse_evented = 1;
-			qvald(event.button.button);
+			// qvald(event.button.button);
 			if(event.button.button&2) mouse_state->buttons |= 0b00001010;
 			else if(event.button.button&1) mouse_state->buttons |= 0b00000101;
 			// if(mouse_state_previous.buttons)) mouse_state->dragging = 1;
@@ -66,8 +66,8 @@ char m_handleInput(uint8_t** keyboardState, mouse_state_t* mouse_state){
 	}
 		if(mouse_evented){
 			if(mouse_state->buttons == 0x00) mouse_state->dragging = 0;
-			qprint("xy : %4d | %4d    buttons : %1x\n", mouse_state->pos.x, mouse_state->pos.y, mouse_state->buttons);
-			qprint("dr : %4d | %4d    dragging: %1x\n", mouse_state->drag.x, mouse_state->drag.y, mouse_state->dragging);
+			// qprint("xy : %4d | %4d    buttons : %1x\n", mouse_state->pos.x, mouse_state->pos.y, mouse_state->buttons);
+			// qprint("dr : %4d | %4d    dragging: %1x\n", mouse_state->drag.x, mouse_state->drag.y, mouse_state->dragging);
 		}
 
 	*keyboardState = (uint8_t*) SDL_GetKeyboardState(NULL);

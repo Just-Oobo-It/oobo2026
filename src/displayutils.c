@@ -93,8 +93,8 @@ texture_t load_image(char* path){
 		return t;
 	}
 	qlog("%s : read %d channels\n", path, channels_read)
-	qvald(t.width);
-	qvald(t.height);
+	// qvald(t.width);
+	// qvald(t.height);
 
 	uint32_t p;
 
@@ -116,8 +116,8 @@ int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 	
 	int32_t t_index;
 
-	qvald(image.width);
-	qvald(image.height);
+	// qvald(image.width);
+	// qvald(image.height);
 
 	int u;
 	int v;
