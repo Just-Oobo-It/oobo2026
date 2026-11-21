@@ -6,8 +6,8 @@ const char *ENERGY_NAME[5] = {"SOLAR", "WIND", "HYDRO", "GEO", "BIO"};
 
 int main(void)
 {
-    int temperature = 11;
-    int sunshine = 22;
+    int temperature = 18;
+    int sunshine = 34;
     int humidity = 80;
     int clouds = 70;
     int wind = 45;
