@@ -22,12 +22,29 @@
 
 enum ENERGY_TYPE
 {
-    SOLAR,
+    SOLAR = 0,
     WIND,
     HYDRO,
     GEO,
     BIO
 }; // 0 -> 4
+
+enum ENVIRONMENT_FACTORS {
+    TEMPERATURE = 0,
+    SUNSHINE,
+    HUMIDITY,
+    CLOUDS,
+    WIND,
+    RAIN,
+    SOIL_FERTILITY,
+    FOREST,
+    SEISMIC_ACTIVITY,
+    WATER
+}; // 0 -> 9
+
+#define ENERGY_TYPE_COUNT 5
+#define ENVIRONMENT_FACTORS_COUNT 10
+
 
 int *compute_efficiency(int temperature,
                         int sunshine,

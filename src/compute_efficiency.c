@@ -24,7 +24,7 @@ int *compute_efficiency(
 {
     int *res;
 
-    res = (int *)calloc(sizeof(int), 5);
+    res = (int *)calloc(sizeof(int), ENERGY_TYPE_COUNT);
 
     res[SOLAR] = compute_solar(temperature, sunshine, humidity, clouds, rain);
     res[WIND] = compute_wind(wind, rain);
