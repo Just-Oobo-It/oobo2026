@@ -24,7 +24,7 @@ int* get_computed_data(int **maps, int x, int y)
     int sunshine = factor_values[SUNSHINE];
     int humidity = factor_values[HUMIDITY];
     int clouds = factor_values[CLOUDS];
-    int wind = factor_values[WIND];
+    int wind = factor_values[WIND_FORCE];
     int rain = factor_values[RAIN];
     int soil_fertility = factor_values[SOIL_FERTILITY];
     int forest = factor_values[FOREST];
