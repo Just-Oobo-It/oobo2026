@@ -1,0 +1,42 @@
+#ifndef COMPUTE_EFFICIENCY_H
+#define COMPUTE_EFFICIENCY_H
+
+enum ENERGY_TYPE
+{
+    SOLAR,
+    WIND,
+    HYDRO,
+    GEO,
+    BIO
+}; // 0 -> 4
+
+int *compute_efficiency(int temp,
+                        int temperature,
+                        int humidity,
+                        int clouds,
+                        int wind,
+                        int rain,
+                        int soil_fertility,
+                        int forest,
+                        int seismic_activity,
+                        int water); // Returns int*[5] where index is enum ENERGY_TYPE
+
+int compute_solar(int temp,
+                  int humidity,
+                  int clouds,
+                  int rain,
+                  int temperature);
+
+int compute_wind(int wind,
+                 int rain);
+
+int compute_hydro(int water,
+                  int rain,
+                  int temperature);
+
+int compute_geo(int seismic_activity);
+
+int compute_bio(int forest,
+                int soil_fertility);
+
+#endif
