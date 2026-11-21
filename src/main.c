@@ -15,28 +15,24 @@
 int main(int argc, char** argv){
 
 
-
-	button_t* buttons = malloc(MAX_BUTTONS * sizeof(button_t));
-	if(buttons == 0){
-		qerror("Failed to malloc buttons\n");
-	}
-	button_t* clicked_button = 0;
-	button_t* button_tmp = 0;
-	uint8_t button_down = 0;
-
-
+/*
+	Setup layers
+*/
 
 	uint32_t* layer_background = malloc(sizeof(uint32_t)*WIDTH*HEIGHT);
 	if(layer_background == 0){
 		qerror("Failed to malloc layer_background\n");
+		return 1;
 	}
 	uint32_t* layer_ui = malloc(sizeof(uint32_t)*WIDTH*HEIGHT);
 	if(layer_background == 0){
 		qerror("Failed to malloc layer_ui\n");
+		return 1;
 	}
 	uint32_t* layer_overlay = malloc(sizeof(uint32_t)*WIDTH*HEIGHT);
 	if(layer_background == 0){
 		qerror("Failed to malloc layer_overlay\n");
+		return 1;
 	}
 
 	for(uint32_t i=0; i<WIDTH*HEIGHT; i++){
@@ -45,24 +41,12 @@ int main(int argc, char** argv){
 		layer_overlay[i] = 0x00000000;
 	}
 
-	/*
-		Test
-	*/
-
-
-
-
-
-	SDL_Window* window = initSDL(WINDOWNAME);
-	uint8_t* keyboard_state;
-	mouse_state_t mouse_state = {0x00, 0x00, {-1, -1}, {-1, -1}};
-	
-	uint32_t frame_start = 0;
-	uint32_t frame_time;
-
 	uint8_t need_render = 1;
 
-	qlog("before mainloop\n");
+
+/*
+	Load assets
+*/
 
 	texture_t testimg = load_image("testimg.jpeg");
 	
@@ -79,41 +63,63 @@ int main(int argc, char** argv){
 	texture_t img_solarpanel_hot = load_image("assets/solarpanel_hot.png");
 	texture_t img_solarpanel_cloudy = load_image("assets/solarpanel_cloudy.png");
 	texture_t img_windturbine_base = load_image("assets/windturbine_base.png");
-	// texture_t testgrad0 = load_image("testgrad0.png");
-	// texture_t testgrad1 = load_image("testgrad1.png");
 	qlog("loaded testimg\n");
-	// qvald(testimg.pixels);
 	disp_image(layer_background, testimg, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
-	// disp_image(window, testimg, (vec2ui){0, 0}, (vec2ui){480, 360});
-	// disp_image(layer_ui, solarpanel_base, (vec2ui){0, 0}, (vec2ui){128, 128});
-	// disp_image(layer_ui, testgrad0, (vec2ui){0, 0}, (vec2ui){512, 512});
-	// disp_image(layer_ui, testgrad1, (vec2ui){0, 0}, (vec2ui){512, 512});
 	qlog("displayed testimg\n");
 
+
+/*
+	Setup button system
+*/
+
+	button_t* buttons = malloc(MAX_BUTTONS * sizeof(button_t));
+	if(buttons == 0){
+		qerror("Failed to malloc buttons\n");
+	}
+	button_t* clicked_button = 0;
+	button_t* button_tmp = 0;
+	uint8_t button_down = 0;
+
+
 	const uint32_t ui_button_count = 3;
-	// texture_t ui_button_textures[ui_button_count] = {solarpanel_base, windturbine_base};
 	texture_t ui_button_textures[ui_button_count];
+	
 	ui_button_textures[0] = img_button_world;
 	ui_button_textures[1] = img_solarpanel_base;
 	ui_button_textures[2] = img_windturbine_base;
+	
 	vec2ui ui_button_size = {128, 128};
-	vec2ui ui_button_start = {WIDTH - ui_button_size.x, (HEIGHT/2)};
+	// vec2ui ui_button_start = {WIDTH - ui_button_size.x, (HEIGHT/2)};
+	vec2ui ui_button_start = {WIDTH - ui_button_size.x, 0};
 	for(uint32_t i=0; i<ui_button_count; i++){
-
 		create_visual_button(layer_ui, buttons, ui_button_textures[i], (i+1)<<8, (vec2ui){ui_button_start.x, ui_button_start.y + (i*ui_button_size.y)}, ui_button_size);
-		
 	}
 
+
+/*
+	Pin
+*/
 
 	vec2ui pin_position;
 	uint8_t pin_active = 0;
 	vec2ui pin_size = {64, 64};
 
 
+/*
+	SDL setup
+*/
+
+	SDL_Window* window = initSDL(WINDOWNAME);
+	uint8_t* keyboard_state;
+	mouse_state_t mouse_state = {0x00, 0x00, {-1, -1}, {-1, -1}};
+	
+	uint32_t frame_start = 0;
+	uint32_t frame_time;
+
+	qlog("before mainloop\n");
 
 	uint8_t done = 0;
 	while(!done){
-		// done = m_handleInput(&keyboard_state, &mouse_state);
 		done = m_handleInput(&keyboard_state, &mouse_state);
 		
 		// colors are ARGB
@@ -121,6 +127,11 @@ int main(int argc, char** argv){
 		
 		if(need_render)disp_render(window, layer_background, layer_ui, layer_overlay);
 		need_render = 0;
+
+
+	/*
+		Handle Buttons
+	*/
 
 		if(!button_down) clicked_button = button_clicked(&mouse_state, buttons);
 		if(clicked_button){
@@ -160,6 +171,11 @@ int main(int argc, char** argv){
 
 		}
 
+
+	/*
+		Handle Pin
+	*/
+
 		if((mouse_state.buttons&0b11) ^ ((mouse_state.buttons>>2)&0b11) && !button_down){
 		
 			if((mouse_state.pos.x < ui_button_start.x - (pin_size.x/2) || mouse_state.pos.y < ui_button_start.y)
@@ -185,7 +201,8 @@ int main(int argc, char** argv){
 			}
 
 		}
-		// qprint("clicked_button = %8x\n", clicked_button);
+		
+
 		// qvald(frame_start);
 		// qvald(frame_time);
 

@@ -9,6 +9,7 @@
 
 #include "displayutils.h"
 
+
 uint8_t in_bound(vec2ui pos, button_t button){
 	return (button.topleft.x <= pos.x && pos.x < button.downright.x && button.topleft.y <= pos.y && pos.y < button.downright.y);
 }
