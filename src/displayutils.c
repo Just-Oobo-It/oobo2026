@@ -131,8 +131,8 @@ int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 	uint32_t pixel;
 	uint8_t r, g, b;
 
-	for(uint32_t y=max(0, pos.y); y<min(HEIGHT, pos.y + size.y); y++){
-		for(uint32_t x=max(0, pos.x); x<min(WIDTH, pos.x + size.x); x++){
+	for(int32_t y=max(0, pos.y); y<min(HEIGHT, pos.y + size.y); y++){
+		for(int32_t x=max(0, pos.x); x<min(WIDTH, pos.x + size.x); x++){
 			
 			u = ((x - pos.x)*image.width/(size.x));
 			v = ((y - pos.y)*image.height/(size.y));
