@@ -37,14 +37,14 @@ int compute_solar(
 
     res = 100;
     if (sunshine < 50)
-        res *= sunshine / 100;
+        res = (res*sunshine) / 100;
     if (clouds > 30)
-        res *= (100 - clouds) / 100;
+        res = (res * (100 - clouds)) / 100;
     if (humidity > 60)
         res *= 0.5;
-    res *= rain / 100;
+    res = (res * rain) / 100;
     if (temperature < -20 || temperature > 60)
-        res /= 4;
+        res = res / 4;
 }
 
 int compute_wind(int wind,
