@@ -1,49 +1,53 @@
-
-	############
-	##        ##
-	##  meow  ##
-	##        ##
-	############
-
-NAME := assistant
-
-
-CC := gcc
-
-# CFLAGS := -fPIE -Wall -Werror -O2
-CFLAGS := -fPIE -Wall -Werror -Wextra -Wno-unused-variable -Wno-unused-parameter -Wno-calloc-transposed-args -Wno-error=unused-but-set-variable -O2
+#CFLAGS := -fPIE -Wall -Werror -Wextra -Wno-unused-variable -Wno-unused-parameter -Wno-calloc-transposed-args -Wno-error=unused-but-set-variable -O2
+CC = cc
+CFLAGS = -std=c23 -Wall -Wextra -Werror -O2# -pedantic
 CFLAGS += -Iinclude -Ilib
+CFLAGS += -Wc23-extensions
+CFLAGS += -Wno-unused-parameter -Wno-unused-variable
 
-CFLAGS += $(shell pkg-config sdl2 --cflags)
+LIBS != pkg-config --libs sdl2
+LIBS += -lm
+INC != pkg-config --static --cflags sdl2
 
-LIBS := -lSDL2 -lm
+NAME = oob
 
-SRCDIR := src/
-LIBDIR := lib/
-OBJDIR := build/obj/
-LIBOBJDIR := $(OBJDIR)$(LIBDIR)
+SRC != find src/ -type f -iname '*.c'
 
-SFILES := c
-OFILES := o
+SRCLIB != find lib/ -type f -iname '*.c'
 
-SOURCES := $(shell find $(SRCDIR) -name "*.$(SFILES)")
-LIBSOURCES := $(shell find $(LIBDIR) -name "*.$(SFILES)")
-OBJECTS := $(patsubst $(SRCDIR)%.$(SFILES), $(OBJDIR)%.$(OFILES), $(SOURCES))
-LIBOBJECTS := $(patsubst $(LIBDIR)%.$(SFILES), $(LIBOBJDIR)%.$(OFILES), $(LIBSOURCES))
+OBJ = ${SRC:src/%.c=.cobj/%.o}
+OBJLIB = ${SRCLIB:lib/%.c=.cobj/%.o}
 
-all: directories $(NAME)
+TARGETS = ${SRC:src/%.c=%.o}
+TARGETSLIB = ${SRCLIB:lib/%.c=%.o}
 
-directories:
-	mkdir -p $(OBJDIR)
-	mkdir -p $(OBJDIR)$(LIBDIR)
+all: $(NAME)
+		@echo "Done!"
 
-$(NAME): $(OBJECTS) $(LIBOBJECTS)
-	$(CC) $^ $(LIBS) -o $@
-$(OBJDIR)%$(OFILES): $(SRCDIR)%$(SFILES)
-	$(CC) $(CFLAGS) -c $< -o $@
-$(LIBOBJDIR)%$(OFILES): $(LIBDIR)%$(SFILES)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJ) $(OBJLIB)
+		@echo "Compiling $(NAME)..."
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJLIB) $(LIBS)
+
+$(OBJ): $(TARGETS)
+$(OBJLIB): $(TARGETSLIB)
+
+$(TARGETS): $(SRC)
+$(TARGETSLIB): $(SRCLIB)
 
 clean:
-	rm -rf $(OBJDIR)
+		@echo "Deleting $(NAME) objects..."
+		@rm -rf .cobj
+
+fclean: clean
+		@echo "Deleting $(NAME) ..."
+		@rm -f $(NAME)
+
+re: fclean all
+
+.c.o:
+		@mkdir -p .cobj
+		@echo  "Compiling $@..."
+		$(CC) $(CFLAGS) $(INC) -c $< -o .cobj/$@
+
+.PHONY: all re fclean clean
 
