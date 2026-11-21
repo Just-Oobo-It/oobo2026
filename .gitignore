@@ -4,3 +4,4 @@ assistant
 
 ve/
 .ve/
+__pycache__/
