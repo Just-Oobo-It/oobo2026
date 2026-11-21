@@ -29,6 +29,7 @@ int disp_fill(SDL_Window* window, uint32_t color){
 	return 0;
 }
 
+
 int disp_render(SDL_Window* window, uint32_t* layer_background, uint32_t* layer_ui, uint32_t* layer_overlay){
 
 	uint32_t* pixels = SDL_GetWindowSurface(window)->pixels;
@@ -73,7 +74,6 @@ int disp_render(SDL_Window* window, uint32_t* layer_background, uint32_t* layer_
 }
 
 
-
 int min(int a, int b){
 	if(a>b) return b;
 	return a;
@@ -82,6 +82,7 @@ int max(int a, int b){
 	if(a>b) return a;
 	return b;
 }
+
 
 texture_t load_image(char* path){
 	texture_t t;
@@ -111,11 +112,8 @@ texture_t load_image(char* path){
 	return t;
 }
 
-// int disp_image(SDL_Window* window, texture_t image, vec2ui pos, vec2ui size){
 int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 	
-	// uint32_t* pixels = SDL_GetWindowSurface(window)->pixels;
-	qlog("got pixels\n");
 	int32_t t_index;
 
 	qvald(image.width);
@@ -145,11 +143,6 @@ int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 				qerror("T INDEX TOO HIGH\n");
 				return 1;
 			}	
-			// qvald(u);
-			// qvald(v);
-			// qvald(t_index);
-
-			//todo : alpha
 			
 			// base_pixel = pixels[y*WIDTH + x];
 			pixel = image.pixels[t_index];
@@ -189,11 +182,9 @@ int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 			// b = 0;
 			
 
-
 			// pixel = (alpha_out<<24) | (r<<16) | (g<<8) | b;
 
 			pixels[y*WIDTH + x] = pixel;
-			// pixels[y*WIDTH + x] = image.pixels[t_index];
 		}
 	}
 
