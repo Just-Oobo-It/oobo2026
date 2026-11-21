@@ -23,10 +23,10 @@ typedef struct {
 	uint32_t tag;
 	uint8_t alive;
 
-} button;
+} button_t;
 
 
-button* next_button(button* buttons, uint32_t tag);
-button* button_clicked(mouse_state_t* mouse_state, button* buttons);
+button_t* next_button(button_t* buttons, uint32_t tag);
+button_t* button_clicked(mouse_state_t* mouse_state, button_t* buttons);
 
 #endif
