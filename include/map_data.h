@@ -8,6 +8,6 @@ int get_data_at_pixel(int *map, int x, int y);
 
 int *get_raw_data_array(int **maps, int x, int y);
 
-int *get_computed_data(int **maps, int x, int y);
+efficiency_response_t *get_computed_data(int **maps, int x, int y);
 
 #endif
