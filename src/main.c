@@ -53,9 +53,13 @@ int main(int argc, char** argv){
 
 	texture_t testimg = load_image("testimg.jpeg");
 	
-	texture_t img_world = load_image("assets/placeholder_world.jpg");
-	texture_t img_heatmap = load_image("assets/placeholder_heatmap.jpg");
-	texture_t img_windmap = load_image("assets/placeholder_windmap.png");
+	// texture_t img_world = load_image("assets/placeholder_world.jpg");
+	// texture_t img_world = load_image("assets/placeholder_world.jpg");
+	// texture_t img_world = load_image("assets/placeholder_world.jpg");
+	texture_t img_world = load_image("assets/eworld_processed.png");
+	texture_t img_heatmap = load_image("assets/eheat_processed.png");
+	texture_t img_windmap = load_image("assets/ewind_processed.png");
+	texture_t img_humiditymap = load_image("assets/ehumidity_processed.png");
 
 	texture_t img_pin = load_image("assets/pin.png");
 	
@@ -188,6 +192,10 @@ int main(int argc, char** argv){
 				case BT_SHOW_HEAT:
 					disp_image(layer_background, img_heatmap, (vec2ui){0, 0}, (vec2ui){WIDTH - ui_button_size.x, HEIGHT});
 					break;
+				case BT_SHOW_HUMIDITY:
+					disp_image(layer_background, img_humiditymap, (vec2ui){0, 0}, (vec2ui){WIDTH - ui_button_size.x, HEIGHT});
+					break;
+				
 				default:
 					break;
 			}
