@@ -1,6 +1,25 @@
 #ifndef COMPUTE_EFFICIENCY_H
 #define COMPUTE_EFFICIENCY_H
 
+/*******************************************/
+/*                                         */
+/*   compute_type :                        */
+/*                                         */
+/*   Each compute_type function returns    */
+/*   a value between 0 and 100 being the   */
+/*   percentage of efficiency according    */
+/*   to the environment inputs             */
+/*                                         */
+/* * * * * * * * * * * * * * * * * * * * * */
+/*                                         */
+/*   compute_efficiency :                  */
+/*                                         */
+/*   compute_efficiency returns an array   */
+/*   of the computed values of each        */
+/*   energy type, indexed by enum value    */
+/*                                         */
+/*******************************************/
+
 enum ENERGY_TYPE
 {
     SOLAR,
