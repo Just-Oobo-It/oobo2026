@@ -5,6 +5,8 @@
 
 #include "vectors.h"
 
+#include "displayutils.h"
+
 typedef struct {
 
 	uint8_t buttons;
@@ -23,10 +25,11 @@ typedef struct {
 	uint32_t tag;
 	uint8_t alive;
 
-} button;
+} button_t;
 
 
-button* next_button(button* buttons, uint32_t tag);
-button* button_clicked(mouse_state_t* mouse_state, button* buttons);
+button_t* next_button(button_t* buttons, uint32_t tag);
+button_t* button_clicked(mouse_state_t* mouse_state, button_t* buttons);
+button_t* create_visual_button(uint32_t* layer_ui, button_t* buttons, texture_t image, uint32_t tag, vec2ui pos, vec2ui size);
 
 #endif
