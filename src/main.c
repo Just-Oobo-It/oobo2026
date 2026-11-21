@@ -8,6 +8,7 @@
 #include "initsdl.h"
 #include "sdlmanager.h"
 #include "displayutils.h"
+#include "render_text.h"
 
 #include "click.h"
 #include "vectors.h"
@@ -54,9 +55,9 @@ int main(int argc, char** argv){
 	texture_t img_heatmap = load_image("assets/placeholder_heatmap.jpg");
 	texture_t img_windmap = load_image("assets/placeholder_windmap.png");
 
-	texture_t img_pin = load_image("assets/placeholder_pin.png");
+	texture_t img_pin = load_image("assets/pin.png");
 	
-	texture_t img_button_world = load_image("assets/placeholder_button_world.png");
+	texture_t img_button_world = load_image("assets/button_world.png");
 
 	texture_t img_solarpanel_base = load_image("assets/solarpanel_base.png");
 	texture_t img_solarpanel_humid = load_image("assets/solarpanel_humid.png");
@@ -66,6 +67,13 @@ int main(int argc, char** argv){
 	qlog("loaded testimg\n");
 	disp_image(layer_background, testimg, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
 	qlog("displayed testimg\n");
+
+	texture_t bitmap_font = load_image("assets/bitmapfont.png");
+
+	texture_t testtext = render_text(bitmap_font, "test?!", 8);
+	// disp_image(layer_background, testtext, (vec2ui){0, 0}, (vec2ui){240, 80});
+	disp_image(layer_background, testtext, (vec2ui){0, 0}, (vec2ui){640, 80});
+
 
 
 /*
@@ -85,8 +93,8 @@ int main(int argc, char** argv){
 	texture_t ui_button_textures[ui_button_count];
 	
 	ui_button_textures[0] = img_button_world;
-	ui_button_textures[1] = img_solarpanel_base;
-	ui_button_textures[2] = img_windturbine_base;
+	ui_button_textures[1] = img_windturbine_base;
+	ui_button_textures[2] = img_solarpanel_base;
 	
 	vec2ui ui_button_size = {128, 128};
 	// vec2ui ui_button_start = {WIDTH - ui_button_size.x, (HEIGHT/2)};
@@ -146,11 +154,11 @@ int main(int argc, char** argv){
 				case BT_SHOW_WORLD:
 					disp_image(layer_background, img_world, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
 					break;
-				case BT_SHOW_HEAT:
-					disp_image(layer_background, img_heatmap, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
-					break;
 				case BT_SHOW_WIND:
 					disp_image(layer_background, img_windmap, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
+					break;
+				case BT_SHOW_HEAT:
+					disp_image(layer_background, img_heatmap, (vec2ui){0, 0}, (vec2ui){WIDTH, HEIGHT});
 					break;
 				default:
 					break;
