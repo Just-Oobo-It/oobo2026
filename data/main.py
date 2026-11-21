@@ -6,12 +6,8 @@ import importlib
 MAP_WIDTH = 1920
 MAP_HEIGHT = 1080
 
-def create_empty_map():
-    pass
-
 def draw_map(empty_map: Image, data_array: list[list[int]], map_name: str):
     pass
-
 
 fields = [
     "TEMPERATURE",
@@ -26,6 +22,7 @@ fields = [
     "WATER"
 ]
 
+# Load modules
 modules = list()
 for x in fields:
     try:
@@ -46,4 +43,4 @@ def get_data(name: str, mod) -> list[list[int]]:
 for x in modules:
     print(x)
     data = get_data(x["name"], x["module"])
-    draw_map(create_empty_map(), data, "temperature")
+    draw_map(data, x["name"])
