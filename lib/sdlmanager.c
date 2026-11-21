@@ -1,7 +1,8 @@
-#include <SDL2/SDL_events.h>
+// #include <SDL2/SDL_events.h>
 #include <stdint.h>
 
 #include <SDL2/SDL.h>
+#define STB_IMAGE_IMPLEMENTATION
 
 #include "config.h"
 
