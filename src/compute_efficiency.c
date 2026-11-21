@@ -45,24 +45,29 @@ int compute_solar(
     res = (res * rain) / 100;
     if (temperature < -20 || temperature > 60)
         res = res / 4;
+    return res;
 }
 
 int compute_wind(int wind,
                  int rain)
 {
+    return 0;
 }
 
 int compute_hydro(int water,
                   int rain,
                   int temperature)
 {
+    return 0;
 }
 
 int compute_geo(int seismic_activity)
 {
+    return 0;
 }
 
 int compute_bio(int forest,
                 int soil_fertility)
 {
+    return 0;
 }
