@@ -29,6 +29,50 @@ int disp_fill(SDL_Window* window, uint32_t color){
 	return 0;
 }
 
+int disp_render(SDL_Window* window, uint32_t* layer_background, uint32_t* layer_ui, uint32_t* layer_overlay){
+
+	uint32_t* pixels = SDL_GetWindowSurface(window)->pixels;
+	
+	uint32_t bg, fg, ov;
+	uint32_t color;
+	uint8_t a, r, g, b;
+	
+	// qlog("before disp_render loop\n");
+	for(uint32_t y=0; y<HEIGHT; y++){
+		for(uint32_t x=0; x<WIDTH; x++){
+			
+			bg = layer_background[y*WIDTH + x];
+			fg = layer_ui[y*WIDTH + x];
+			ov = layer_overlay[y*WIDTH + x];
+
+			color = bg;
+			if(((fg>>24)&0xff) > 128){
+				
+				color = fg;
+
+				if(((ov>>24)&0xff)){
+					a = ((color>>24)&0xff);
+					r = ((color>>16)&0xff);
+					g = ((color>>8)&0xff);
+					b = ((color>>0)&0xff);
+					r>>=2;
+					g>>=2;
+					b>>=2;
+					color = (a<<24) | (r<<16) | (g<<8) | b;
+				}
+
+			}
+
+
+			pixels[y*WIDTH + x] = color;
+		}
+	}
+	// qlog("after disp_render loop\n");
+
+	return 0;
+}
+
+
 
 int min(int a, int b){
 	if(a>b) return b;
@@ -67,9 +111,10 @@ texture_t load_image(char* path){
 	return t;
 }
 
-int disp_image(SDL_Window* window, texture_t image, vec2ui pos, vec2ui size){
+// int disp_image(SDL_Window* window, texture_t image, vec2ui pos, vec2ui size){
+int disp_image(uint32_t* pixels, texture_t image, vec2ui pos, vec2ui size){
 	
-	uint32_t* pixels = SDL_GetWindowSurface(window)->pixels;
+	// uint32_t* pixels = SDL_GetWindowSurface(window)->pixels;
 	qlog("got pixels\n");
 	uint32_t t_index;
 
@@ -89,8 +134,8 @@ int disp_image(SDL_Window* window, texture_t image, vec2ui pos, vec2ui size){
 	for(uint32_t y=max(0, pos.y); y<min(HEIGHT, pos.y + size.y); y++){
 		for(uint32_t x=max(0, pos.x); x<min(WIDTH, pos.x + size.x); x++){
 			
-			u = (x*image.width/(size.x)) - pos.x;
-			v = (y*image.height/(size.y)) - pos.y;
+			u = ((x - pos.x)*image.width/(size.x));
+			v = ((y - pos.y)*image.height/(size.y));
 			if(u < 0) continue;
 			if(u >= image.width) continue;
 			if(v < 0) continue;

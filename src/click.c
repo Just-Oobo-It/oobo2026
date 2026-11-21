@@ -5,12 +5,12 @@
 
 #include "click.h"
 
-uint8_t in_bound(vec2ui pos, button button){
+uint8_t in_bound(vec2ui pos, button_t button){
 	return (button.topleft.x <= pos.x && pos.x < button.downright.x && button.topleft.y <= pos.y && pos.y < button.downright.y);
 }
 
 
-button* next_button(button* buttons, uint32_t tag){
+button_t* next_button(button_t* buttons, uint32_t tag){
 	for(uint32_t i=0; i<MAX_BUTTONS; i++){
 		if(!buttons[i].alive) return &(buttons[i]);
 	}
@@ -18,10 +18,10 @@ button* next_button(button* buttons, uint32_t tag){
 }
 
 
-button* button_clicked(mouse_state_t* mouse_state, button* buttons){
+button_t* button_clicked(mouse_state_t* mouse_state, button_t* buttons){
 	
 	uint32_t best_i = -1;
-	uint32_t best_z = INT32_MIN;
+	int32_t best_z = INT32_MIN;
 
 	if((mouse_state->buttons&0b00001100) == 0x00) return 0;
 
