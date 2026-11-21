@@ -38,6 +38,7 @@ button_t* button_clicked(mouse_state_t* mouse_state, button_t* buttons){
 			}
 		}
 	}
+	// qvald(best_i);
 	if(best_i != (uint32_t)-1) return &(buttons[best_i]);
 	return 0;
 }

@@ -56,10 +56,10 @@ int main(int argc, char** argv){
 	// texture_t img_world = load_image("assets/placeholder_world.jpg");
 	// texture_t img_world = load_image("assets/placeholder_world.jpg");
 	// texture_t img_world = load_image("assets/placeholder_world.jpg");
-	texture_t img_world = load_image("assets/eworld_processed.png");
-	texture_t img_heatmap = load_image("assets/eheat_processed.png");
-	texture_t img_windmap = load_image("assets/ewind_processed.png");
-	texture_t img_humiditymap = load_image("assets/ehumidity_processed.png");
+	texture_t img_world = load_image("assets/eworld.png");
+	texture_t img_heatmap = load_image("assets/eheat.png");
+	texture_t img_windmap = load_image("assets/ewind.png");
+	texture_t img_humiditymap = load_image("assets/ehumidity.png");
 
 	texture_t img_pin = load_image("assets/pin.png");
 	
@@ -96,6 +96,9 @@ int main(int argc, char** argv){
 	button_t* buttons = malloc(MAX_BUTTONS * sizeof(button_t));
 	if(buttons == 0){
 		qerror("Failed to malloc buttons\n");
+	}
+	for(uint32_t i=0; i<MAX_BUTTONS; i++){
+		buttons[i] = (button_t){{-1,-1}, {-1, -1}, INT32_MIN, 0, 0};
 	}
 	button_t* clicked_button = 0;
 	button_t* button_tmp = 0;
