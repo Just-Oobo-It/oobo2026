@@ -42,7 +42,7 @@ texture_t render_text(texture_t bitmap_font, char* str, uint32_t width){
 			continue;
 		}
 		else if('A' <= str[i] && str[i] <= 'M'){
-			qprint("AAAAAAAAaa\n");
+			// qprint("AAAAAAAAaa\n");
 			mx = (str[i]-'A')*(cw+1);
 			my = 0;
 		}
@@ -173,8 +173,8 @@ texture_t render_text(texture_t bitmap_font, char* str, uint32_t width){
 
 		for(uint32_t dy=0; dy<ch; dy++){
 			for(uint32_t dx=0; dx<cw; dx++){
-				qvald(mx);
-				qvald(my);
+				// qvald(mx);
+				// qvald(my);
 				// t.pixels[((y+dy)*t.width) + (x+dx)] = bitmap_font.pixels[(((ch+1)*my)+dy)*bitmap_font.width + (((cw+1)*mx)+dx)];
 				t.pixels[((y+dy)*t.width) + (x+dx)] = bitmap_font.pixels[(my+dy)*bitmap_font.width + mx+dx];
 				// t.pixels[(y+dy)*t.width + (x+dx)] = 0xff000000;
