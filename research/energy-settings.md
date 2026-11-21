@@ -2,16 +2,16 @@
 
 ## Requirement
 
-- low cloud cover [./average-cloud-cover-2017.png]
+- low cloud cover [./img/average-cloud-cover-2017.png]
 - flat area
-- high solar irradiance [./photovoltaic-electricity-potential.png]
-- high sunlight availability [./sunshine-availability.png]
+- high solar irradiance [./img/photovoltaic-electricity-potential.png]
+- high sunlight availability [./img/sunshine-availability.png]
 
 # Wind turbine
 
 ## Requirement
 
-- Coasts, waters, any place with strong winds [./mean-wind-speed.png]
+- Coasts, waters, any place with strong winds [./img/mean-wind-speed.png]
 
 # Hydro
 
@@ -19,23 +19,23 @@
 
 - Mountains with 
     water streams 
-    or high rainfalls, [./world-rainfall-map.png]
-    rivers [./world-of-rivers-ki.jpg]
+    or high rainfalls, [./img/world-rainfall-map.png]
+    rivers [./img/world-of-rivers-ki.jpg]
 
 # Geothermal
 
 ## Requirement
 
-- Volcanic zones [./world-volcanic-activity.jpeg]
-- Tectonic plates [./world-seismic-activity.avif]
+- Volcanic zones [./img/world-volcanic-activity.jpeg]
+- Tectonic plates [./img/world-seismic-activity.avif]
 - Areas with high subsurfaces heat gradients
-- Geysers [./geyser.png]
+- Geysers [./img/geyser.png]
 
 # Bioenergy
 
 ## Requirement
 
-- Forests [./forests.jpg]
-- fertile areas [./soil-fertility.jpg]
+- Forests [./img/forests.jpg]
+- fertile areas [./img/soil-fertility.jpg]
 
 
