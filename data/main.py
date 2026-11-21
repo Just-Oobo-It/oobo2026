@@ -2,12 +2,23 @@
 
 from PIL import Image
 import importlib
+import os
 
 MAP_WIDTH = 1920
 MAP_HEIGHT = 1080
 
 def draw_map(data_array: list[list[int]], map_name: str):
-    Image.new(mode="", size=(MAP_WIDTH, MAP_HEIGHT))
+    print(f"Drawing map for '{map_name}'")
+    img = Image.new(mode="L", size=(MAP_WIDTH, MAP_HEIGHT))
+    for y in range(0, MAP_HEIGHT):
+        for x in range(0, MAP_WIDTH):
+            img.putpixel((x, y), data_array[y][x])
+    try:
+        os.mkdir("./assets")
+    except Exception:
+        pass
+    img.save(f"./assets/{map_name}.png", "png")
+
 
 fields = [
     "TEMPERATURE",
@@ -19,7 +30,8 @@ fields = [
     "SOIL_FERTILITY",
     "FOREST",
     "SEISMIC_ACTIVITY",
-    "WATER"
+    "WATER",
+    "MOCKED",
 ]
 
 # Load modules
@@ -37,10 +49,11 @@ for x in fields:
 
 def get_data(name: str, mod) -> list[list[int]]:    
     print(f"Getting data from {name}")
-    mod.get_data(MAP_WIDTH, MAP_HEIGHT)
-    pass
+    return mod.get_data(MAP_WIDTH, MAP_HEIGHT)
 
 for x in modules:
     print(x)
     data = get_data(x["name"], x["module"])
-    draw_map(data, x["name"])
+    print(f"data : {data}")
+    if (data and len(data)):
+        draw_map(data, x["name"])
