@@ -1,11 +1,12 @@
 #include "map_data.h"
+#include "config.h"
 
-int get_data_at_pixel(int **map, int x, int y)
+int get_data_at_pixel(int *map, int x, int y)
 {
-    return (int)((map[y][x] / 255) * 100);
+    return (int)((map[y * WIDTH + x] / 255) * 100);
 }
 
-int* get_raw_data_array(int ***maps, int x, int y) // maps should be of size ENVIRONMENT_FACTORS_COUNT, one map for each factor
+int* get_raw_data_array(int **maps, int x, int y) // maps should be of size ENVIRONMENT_FACTORS_COUNT, one map for each factor
 {
     int *factor_values = (int*)calloc(sizeof(int), ENVIRONMENT_FACTORS_COUNT);
     for (int i = 0; i < ENVIRONMENT_FACTORS_COUNT; i++)
@@ -15,8 +16,10 @@ int* get_raw_data_array(int ***maps, int x, int y) // maps should be of size ENV
     return factor_values;
 }
 
-int* get_computed_data(int *factor_values, int x, int y)
+int* get_computed_data(int **maps, int x, int y)
 {
+    int *factor_values = get_raw_data_array(maps, x, y);
+
     int temperature = factor_values[TEMPERATURE];
     int sunshine = factor_values[SUNSHINE];
     int humidity = factor_values[HUMIDITY];
