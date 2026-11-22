@@ -91,7 +91,7 @@ vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font,
 		free(tmp_text.pixels);
 		
 		c = (val/10)%10;
-		if(c == 0 && c<100) c = ' ';
+		if(c == 0 && val<100) c = ' ';
 		else c+= '0';
 		str[0] = c;
 		tmp_text = render_text(bitmap_font, str, 1);
