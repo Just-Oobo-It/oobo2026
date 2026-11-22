@@ -34,9 +34,9 @@ typedef enum ENVIRONMENT_FACTORS
     WIND_FORCE = 0,
     TEMPERATURE,
     HUMIDITY,
+    RAIN,
     SUNSHINE,
     CLOUDS,
-    RAIN,
     SOIL_FERTILITY,
     FOREST,
     SEISMIC_ACTIVITY,
@@ -51,15 +51,15 @@ typedef struct efficiency_response_s
 
 #define ENERGY_TYPE_COUNT 5
 // #define ENVIRONMENT_FACTORS_COUNT 10
-#define ENVIRONMENT_FACTORS_COUNT 5
+#define ENVIRONMENT_FACTORS_COUNT 6
 
 efficiency_response_t *compute_efficiency(
                         int wind,
 						int temperature,
                         int humidity,
                         int rain,
-                        int sunshine
-                        // int clouds,
+                        int sunshine,
+                        int clouds
                         // int soil_fertility,
                         // int forest,
                         // int seismic_activity,
@@ -68,10 +68,10 @@ efficiency_response_t *compute_efficiency(
 
 efficiency_response_t compute_solar(
     int temperature,
-    int sunshine,
     int humidity,
-    // int clouds,
-    int rain
+    int rain,
+    int sunshine,
+    int clouds
 );
 
 efficiency_response_t compute_wind(

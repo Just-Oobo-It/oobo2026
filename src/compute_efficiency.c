@@ -15,8 +15,8 @@ efficiency_response_t *compute_efficiency(
     int temperature,
     int humidity,
     int rain,
-    int sunshine
-    // int clouds,
+    int sunshine,
+    int clouds
     // int soil_fertility,
     // int forest,
     // int seismic_activity,
@@ -27,7 +27,7 @@ efficiency_response_t *compute_efficiency(
 
     res = (efficiency_response_t *)calloc(ENERGY_TYPE_COUNT, sizeof(efficiency_response_t));
 
-    res[SOLAR] = compute_solar(temperature, humidity, rain);
+    res[SOLAR] = compute_solar(temperature, humidity, rain, sunshine, clouds);
     // res[SOLAR] = (efficiency_response_t){temperature+20, -1};
     res[WIND] = compute_wind(wind, rain);
     res[HYDRO] = compute_hydro(temperature, rain);
@@ -41,13 +41,15 @@ efficiency_response_t compute_solar(
     int temperature,
     int humidity,
     int rain,
-    int sunshine)
+    int sunshine,
+    int clouds
+    )
 {
     int res;
     int issue = -1;
 
     res = keep_btwn_100(sunshine * 2);
-    // res = (res * (100 - ((rain * 2) - (clouds * 3)) / 10)) / 100; // rain * 0.2, clouds *0.3
+    res = (res * (100 - ((rain * 2) - (clouds * 3)) / 10)) / 100; // rain * 0.2, clouds *0.3
 
     // too much humidity lowers efficiency
     if (humidity > 50)

@@ -36,8 +36,8 @@ efficiency_response_t *get_computed_data(int **maps, int x, int y)
 	temperature -= 20;
     int humidity = factor_values[HUMIDITY];
     int rain = factor_values[RAIN];
-    // int sunshine = factor_values[SUNSHINE];
-    // int clouds = factor_values[CLOUDS];
+    int sunshine = factor_values[SUNSHINE];
+    int clouds = factor_values[CLOUDS];
     // int soil_fertility = factor_values[SOIL_FERTILITY];
     // int forest = factor_values[FOREST];
     // int seismic_activity = factor_values[SEISMIC_ACTIVITY];
@@ -47,9 +47,9 @@ efficiency_response_t *get_computed_data(int **maps, int x, int y)
         wind,
         temperature,
         humidity,
-        rain
-        // sunshine,
-        // clouds,
+        rain,
+        sunshine,
+        clouds
         // soil_fertility,
         // forest,
         // seismic_activity,
