@@ -45,8 +45,8 @@ typedef enum ENVIRONMENT_FACTORS
 
 typedef struct efficiency_response_s
 {
-    int                     percentage;
-    environment_factors_t   issue;
+    int percentage;
+    environment_factors_t issue;
 } efficiency_response_t;
 
 #define ENERGY_TYPE_COUNT 5
@@ -54,44 +54,37 @@ typedef struct efficiency_response_s
 #define ENVIRONMENT_FACTORS_COUNT 9
 
 efficiency_response_t *compute_efficiency(
-                        int wind,
-						int temperature,
-                        int humidity,
-                        int rain,
-                        int sunshine,
-                        int clouds,
-                        // int soil_fertility,
-                        int forest,
-                        int seismic_activity,
-                        int water
-	); // Returns int*[5] where index is enum ENERGY_TYPE
+    int wind,
+    int temperature,
+    int humidity,
+    int rain,
+    int sunshine,
+    int clouds,
+    // int soil_fertility,
+    int forest,
+    int seismic_activity,
+    int water); // Returns int*[5] where index is enum ENERGY_TYPE
 
 efficiency_response_t compute_solar(
     int temperature,
     int humidity,
     int rain,
     int sunshine,
-    int clouds
-);
+    int clouds);
 
 efficiency_response_t compute_wind(
-	int wind,
-	int rain
-);
+    int wind,
+    int rain);
 
 efficiency_response_t compute_hydro(
-	// int water,
-   	int temperature,
-	int rain
-);
+    int water,
+    int temperature,
+    int rain);
 
 efficiency_response_t compute_geo(
-	// int seismic_activity
-);
+    int seismic_activity);
 
 efficiency_response_t compute_bio(
-	// int forest,
-	//    int soil_fertility
-);
+    int forest);
 
 #endif

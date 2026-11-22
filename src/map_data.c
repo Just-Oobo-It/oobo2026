@@ -37,6 +37,7 @@ efficiency_response_t *get_computed_data(int **maps, int x, int y)
     int humidity = factor_values[HUMIDITY];
     int rain = factor_values[RAIN];
     int sunshine = factor_values[SUNSHINE];
+    sunshine = 100 - sunshine;
     int clouds = factor_values[CLOUDS];
     // int soil_fertility = factor_values[SOIL_FERTILITY];
     int forest = factor_values[FOREST];

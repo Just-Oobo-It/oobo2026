@@ -11,6 +11,10 @@
     devShells."${system}".default = let
       pkgs = import nixpkgs { inherit system; };
     in pkgs.mkShell {
+      nativeBuildInputs = with pkgs; [
+        pkg-config
+      ];
+
       packages = with pkgs; [
         zsh
         cmake
