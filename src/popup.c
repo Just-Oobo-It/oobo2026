@@ -57,7 +57,7 @@ vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font,
 
 	char* names[ENERGY_TYPES] = {ENERGY_SOLAR, ENERGY_WIND, ENERGY_WATER, ENERGY_THERMAL, ENERGY_BIO};
 	
-	efficiency_response_t* computed = get_computed_data(data, pos.x*displayed_size.x/WIDTH, pos.y*displayed_size.y/HEIGHT);
+	efficiency_response_t* computed = get_computed_data(data, pos.x*WIDTH/displayed_size.x, pos.y*HEIGHT/displayed_size.y);
 
 	// qprint("real : %d, %d\n", pos.x*displayed_size.x/WIDTH, pos.y*displayed_size.y/HEIGHT);
 
