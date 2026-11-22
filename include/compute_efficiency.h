@@ -37,10 +37,10 @@ typedef enum ENVIRONMENT_FACTORS
     RAIN,
     SUNSHINE,
     CLOUDS,
-    SOIL_FERTILITY,
     FOREST,
     SEISMIC_ACTIVITY,
-    WATER
+    WATER,
+    SOIL_FERTILITY
 } environment_factors_t; // 0 -> 9
 
 typedef struct efficiency_response_s
