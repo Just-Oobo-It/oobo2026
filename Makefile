@@ -11,7 +11,7 @@ NAME := assistant
 CC := gcc
 
 # CFLAGS := -fPIE -Wall -Werror -O2
-CFLAGS := -fPIE -Wall -Werror -Wextra -Wno-unused-variable -Wno-unused-parameter -Wno-calloc-transposed-args -Wno-error=unused-but-set-variable
+CFLAGS := -fPIE -Wall -Werror -Wextra -Wno-unused-variable -Wno-unused-parameter -Wno-calloc-transposed-args -Wno-error=unused-but-set-variable -std=c99
 CFLAGS += -Iinclude -Ilib
 
 CFLAGS += $(shell pkg-config sdl2 --cflags)
