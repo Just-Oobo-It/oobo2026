@@ -14,21 +14,21 @@ efficiency_response_t *compute_efficiency(
     int wind,
     int temperature,
     int humidity,
-    int rain
-    // int sunshine,
+    int rain,
+    int sunshine
     // int clouds,
     // int soil_fertility,
     // int forest,
     // int seismic_activity,
     // int water
-	)
+)
 {
     efficiency_response_t *res;
 
     res = (efficiency_response_t *)calloc(ENERGY_TYPE_COUNT, sizeof(efficiency_response_t));
 
-    // res[SOLAR] = compute_solar(temperature, humidity, rain);
-    res[SOLAR] = (efficiency_response_t){temperature+20, -1};
+    res[SOLAR] = compute_solar(temperature, humidity, rain);
+    // res[SOLAR] = (efficiency_response_t){temperature+20, -1};
     res[WIND] = compute_wind(wind, rain);
     res[HYDRO] = compute_hydro(temperature, rain);
     res[GEO] = compute_geo();
@@ -40,16 +40,16 @@ efficiency_response_t *compute_efficiency(
 efficiency_response_t compute_solar(
     int temperature,
     int humidity,
-    int rain
-)
+    int rain,
+    int sunshine)
 {
-    int res = 100;
+    int res;
     int issue = -1;
-    
-	// res = keep_btwn_100(sunshine * 2);
+
+    res = keep_btwn_100(sunshine * 2);
     // res = (res * (100 - ((rain * 2) - (clouds * 3)) / 10)) / 100; // rain * 0.2, clouds *0.3
-    
-	// too much humidity lowers efficiency
+
+    // too much humidity lowers efficiency
     if (humidity > 50)
     {
         issue = HUMIDITY;
@@ -79,9 +79,8 @@ efficiency_response_t compute_solar(
 }
 
 efficiency_response_t compute_wind(
-	int wind,
-	int rain
-	)
+    int wind,
+    int rain)
 {
     int res;
     int issue = -1;
@@ -98,10 +97,9 @@ efficiency_response_t compute_wind(
 }
 
 efficiency_response_t compute_hydro(
-	// int water,
+    // int water,
     int temperature,
-    int rain
-	)
+    int rain)
 {
     int res = 100;
     int issue = -1;
@@ -134,9 +132,9 @@ efficiency_response_t compute_geo()
 }
 
 efficiency_response_t compute_bio(
-		// int forest,
-		//       int soil_fertility
-	)
+    // int forest,
+    //       int soil_fertility
+)
 {
     // efficiency_response_t t = {keep_btwn_100((forest * 40 + soil_fertility * 60) / 100), TEMPERATURE};
     efficiency_response_t t = {-1, TEMPERATURE};
