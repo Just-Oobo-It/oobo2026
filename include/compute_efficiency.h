@@ -31,11 +31,11 @@ typedef enum ENERGY_TYPE
 
 typedef enum ENVIRONMENT_FACTORS
 {
-    TEMPERATURE = 0,
-    SUNSHINE,
+    WIND_FORCE = 0,
+    TEMPERATURE,
     HUMIDITY,
+    SUNSHINE,
     CLOUDS,
-    WIND_FORCE,
     RAIN,
     SOIL_FERTILITY,
     FOREST,
@@ -50,36 +50,48 @@ typedef struct efficiency_response_s
 } efficiency_response_t;
 
 #define ENERGY_TYPE_COUNT 5
-#define ENVIRONMENT_FACTORS_COUNT 10
+// #define ENVIRONMENT_FACTORS_COUNT 10
+#define ENVIRONMENT_FACTORS_COUNT 4
 
-efficiency_response_t *compute_efficiency(int temperature,
-                        int sunshine,
-                        int humidity,
-                        int clouds,
+efficiency_response_t *compute_efficiency(
                         int wind,
-                        int rain,
-                        int soil_fertility,
-                        int forest,
-                        int seismic_activity,
-                        int water); // Returns int*[5] where index is enum ENERGY_TYPE
+						int temperature,
+                        int humidity,
+                        int rain
+                        // int sunshine,
+                        // int clouds,
+                        // int soil_fertility,
+                        // int forest,
+                        // int seismic_activity,
+                        // int water
+	); // Returns int*[5] where index is enum ENERGY_TYPE
 
 efficiency_response_t compute_solar(
     int temperature,
-    int sunshine,
+    // int sunshine,
     int humidity,
-    int clouds,
-    int rain);
+    // int clouds,
+    int rain
+);
 
-efficiency_response_t compute_wind(int wind,
-                 int rain);
+efficiency_response_t compute_wind(
+	int wind,
+	int rain
+);
 
-efficiency_response_t compute_hydro(int water,
-                  int rain,
-                  int temperature);
+efficiency_response_t compute_hydro(
+	// int water,
+   	int temperature,
+	int rain
+);
 
-efficiency_response_t compute_geo(int seismic_activity);
+efficiency_response_t compute_geo(
+	// int seismic_activity
+);
 
-efficiency_response_t compute_bio(int forest,
-                int soil_fertility);
+efficiency_response_t compute_bio(
+	// int forest,
+	//    int soil_fertility
+);
 
 #endif

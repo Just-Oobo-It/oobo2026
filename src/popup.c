@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "compute_efficiency.h"
 #include "config.h"
 
 #include "energy_names.h"
@@ -7,12 +8,15 @@
 #include "vectors.h"
 #include "displayutils.h"
 
+#include "map_data.h"
+
 #include "qprint.h"
 
 
 
 
-vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font, int* datapoints, vec2ui pos, vec2ui previous_pos){
+// vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font, int* datapoints, vec2ui pos, vec2ui previous_pos, uint32_t** data){
+vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font, vec2ui pos, vec2ui previous_pos, int** data, vec2ui displayed_size){
 
 
 	const vec2ui icon_size = {64, 64};
@@ -53,9 +57,16 @@ vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font,
 
 	char* names[ENERGY_TYPES] = {ENERGY_SOLAR, ENERGY_WIND, ENERGY_WATER, ENERGY_THERMAL, ENERGY_BIO};
 	
+	efficiency_response_t* computed = get_computed_data(data, pos.x*displayed_size.x/WIDTH, pos.y*displayed_size.y/HEIGHT);
+
+	// qprint("real : %d, %d\n", pos.x*displayed_size.x/WIDTH, pos.y*displayed_size.y/HEIGHT);
+
 	uint32_t x = start.x + margin;
 	uint32_t y = start.y + margin;
 	texture_t tmp_text;
+	char c;
+	char str[2] = {0, 0};
+	int val = 42;
 	for(int i=0; i<ENERGY_TYPES; i++){
 		
 		disp_image(layer_ui, icons[i*CONDITION_TYPES], (vec2ui){x, y}, icon_size);
@@ -65,9 +76,40 @@ vec2ui create_popup(uint32_t* layer_ui, texture_t* icons, texture_t bitmap_font,
 		tmp_text = render_text(bitmap_font, names[i], text_line_max);
 		disp_image(layer_ui, tmp_text, (vec2ui){x + icon_size.x + margin, y}, (vec2ui){text_size*text_line_max/2, text_size/2});
 		free(tmp_text.pixels);
-		tmp_text = render_text(bitmap_font, "Efficieny:33%", text_line_max);
+		tmp_text = render_text(bitmap_font, "Efficieny:", text_line_max);
 		disp_image(layer_ui, tmp_text, (vec2ui){x + icon_size.x + margin, y + text_size}, (vec2ui){text_size*text_line_max/2, text_size/2});
 		free(tmp_text.pixels);
+
+		val = computed[i].percentage;
+		
+		c = val/100;
+		if(c == 0) c = ' ';
+		else c+= '0';
+		str[0] = c;
+		tmp_text = render_text(bitmap_font, str, 1);
+		disp_image(layer_ui, tmp_text, (vec2ui){x + icon_size.x + margin + ((text_line_max - 6)*text_size/2), y + text_size}, (vec2ui){text_size/2, text_size});
+		free(tmp_text.pixels);
+		
+		c = (val/10)%10;
+		if(c == 0 && c<100) c = ' ';
+		else c+= '0';
+		str[0] = c;
+		tmp_text = render_text(bitmap_font, str, 1);
+		disp_image(layer_ui, tmp_text, (vec2ui){x + icon_size.x + margin + ((text_line_max - 5)*text_size/2), y + text_size}, (vec2ui){text_size/2, text_size});
+		free(tmp_text.pixels);
+
+		c = val%10;
+		c+= '0';
+		str[0] = c;
+		tmp_text = render_text(bitmap_font, str, 1);
+		disp_image(layer_ui, tmp_text, (vec2ui){x + icon_size.x + margin + ((text_line_max - 4)*text_size/2), y + text_size}, (vec2ui){text_size/2, text_size});
+		free(tmp_text.pixels);
+
+		str[0] = '%';
+		tmp_text = render_text(bitmap_font, str, 1);
+		disp_image(layer_ui, tmp_text, (vec2ui){x + icon_size.x + margin + ((text_line_max - 3)*text_size/2), y + text_size}, (vec2ui){text_size/2, text_size});
+		free(tmp_text.pixels);
+
 		y += icon_size.y + margin;
 	}
 	return start;

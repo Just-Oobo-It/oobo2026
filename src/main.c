@@ -14,6 +14,7 @@
 #include "vectors.h"
 
 #include "create_popup.h"
+#include "load_data.h"
 
 int main(int argc, char** argv){
 
@@ -145,6 +146,12 @@ int main(int argc, char** argv){
 
 
 /*
+	Load Data
+*/
+
+	int** data = load_data();
+
+/*
 	SDL setup
 */
 
@@ -235,7 +242,7 @@ int main(int argc, char** argv){
 					}
 				}
 				
-				previous_popup = create_popup(layer_ui, popup_icons, bitmap_font, NULL, mouse_state.pos, previous_popup);
+				previous_popup = create_popup(layer_ui, popup_icons, bitmap_font, mouse_state.pos, previous_popup, data, (vec2ui){WIDTH-ui_button_size.x, HEIGHT});
 				
 				pin_position = (vec2ui){
 					mouse_state.pos.x - (pin_size.x / 2),
@@ -260,7 +267,8 @@ int main(int argc, char** argv){
 						layer_ui[y*WIDTH + x] = 0x00000000;
 					}
 				}
-				create_popup(layer_ui, NULL, bitmap_font, NULL, (vec2ui){-1, -1}, previous_popup);
+				// create_popup(layer_ui, popup_icons, bitmap_font, (vec2ui){-1, -1}, previous_popup, data, (vec2ui){WIDTH-ui_button_size.x, HEIGHT});
+				create_popup(layer_ui, NULL, bitmap_font, (vec2ui){-1, -1}, previous_popup, NULL, (vec2ui){-1, -1});
 			}
 
 		}
