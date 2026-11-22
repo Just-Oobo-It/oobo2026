@@ -22,7 +22,10 @@ int** load_data(){
 		"assets/ehumidity_processed.png",
 		"assets/eprecipitation_procesed.png",
 		"assets/esunlight_processed_best_i_could.png",
-		"assets/ecloud_processed.png"
+		"assets/ecloud_processed.png",
+		"assets/eforest_processed.png",
+		"assets/egeothermal_processed.png",
+		"assets/ewater_processed.png"
 	};
 
 	for(int i=0; i<ENVIRONMENT_FACTORS_COUNT; i++){

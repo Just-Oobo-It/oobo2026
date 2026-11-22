@@ -16,11 +16,11 @@ efficiency_response_t *compute_efficiency(
     int humidity,
     int rain,
     int sunshine,
-    int clouds
+    int clouds,
     // int soil_fertility,
-    // int forest,
-    // int seismic_activity,
-    // int water
+    int forest,
+    int seismic_activity,
+    int water
 )
 {
     efficiency_response_t *res;

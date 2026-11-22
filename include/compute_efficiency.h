@@ -51,7 +51,7 @@ typedef struct efficiency_response_s
 
 #define ENERGY_TYPE_COUNT 5
 // #define ENVIRONMENT_FACTORS_COUNT 10
-#define ENVIRONMENT_FACTORS_COUNT 6
+#define ENVIRONMENT_FACTORS_COUNT 9
 
 efficiency_response_t *compute_efficiency(
                         int wind,
@@ -59,11 +59,11 @@ efficiency_response_t *compute_efficiency(
                         int humidity,
                         int rain,
                         int sunshine,
-                        int clouds
+                        int clouds,
                         // int soil_fertility,
-                        // int forest,
-                        // int seismic_activity,
-                        // int water
+                        int forest,
+                        int seismic_activity,
+                        int water
 	); // Returns int*[5] where index is enum ENERGY_TYPE
 
 efficiency_response_t compute_solar(
