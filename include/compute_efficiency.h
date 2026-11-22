@@ -68,7 +68,7 @@ efficiency_response_t *compute_efficiency(
 
 efficiency_response_t compute_solar(
     int temperature,
-    // int sunshine,
+    int sunshine,
     int humidity,
     // int clouds,
     int rain
